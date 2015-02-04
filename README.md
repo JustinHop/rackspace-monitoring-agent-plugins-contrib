@@ -3,6 +3,8 @@
 This repository contains contributed custom plugins for the Rackspace Cloud
 Monitoring agent. For details about installing plugins, see [agent plugin check documentation](http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/appendix-check-types-agent.html#section-ct-agent.plugin).
 
+Crowdrise Edits
+
 ## How to Contribute
 
 You can contribute your plugins by first forking the repo, committing your changes, and then opening a pull request through github. If you have any questions, feel free to reach out to us on #cloudmonitoring on freenode IRC.
