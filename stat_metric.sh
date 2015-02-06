@@ -1,6 +1,7 @@
 #!/bin/bash
 
 HOSTNAME=${HOSTNAME:-$(hostname)}
+HOSTNAME=$(echo ${HOSTNAME%.crowdrise.io} | perl -pe 's/(\d+)/\.\1/g')
 
 read -r -d '' CPU <<'EOF'
 -vP '^cpu\d+'
@@ -40,7 +41,7 @@ eval grep $CPU /proc/stat | while read LINE ; do
       echo "processes.total uint64 ${WORDS[1]} processes"
       ;;
     procs_running*)
-      echo ".processes.running uint64 ${WORDS[1]} processes"
+      echo "processes.running uint64 ${WORDS[1]} processes"
       ;;
     procs_blocked*)
       echo "processes.blocked uint64 ${WORDS[1]} processes"
