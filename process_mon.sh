@@ -48,6 +48,10 @@
 #
 # return new AlarmStatus(OK, 'Process running normally.');
 
+HOSTNAME=${HOSTNAME:-$(hostname)}
+HOSTNAME=$(echo ${HOSTNAME%.crowdrise.io} | perl -pe 's/(\d+)/\.\1/g')
+
+
 function help {
 
 cat <<HELP
@@ -64,4 +68,4 @@ if [ -z "$1" ]; then
 fi
 
 process_check=`ps ax | grep -v grep | grep -v process_mon | grep -c "$1"`
-echo "metric process_mon int $process_check"
+echo "metric $HOSTNAME.process.$1 int $process_check"

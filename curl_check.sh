@@ -38,6 +38,9 @@
 # return new AlarmStatus(OK, '200 response received');
 #
 
+HOSTNAME=${HOSTNAME:-$(hostname)}
+HOSTNAME=$(echo ${HOSTNAME%.crowdrise.io} | perl -pe 's/(\d+)/\.\1/g')
+
 function extract_header()
 {
     ret=$(echo "$1" | grep "$2:" | tail -1 | cut -d' ' -f 2- | tr -d '\n\r' )
@@ -49,23 +52,23 @@ response=$(curl -sS -L -f -I -w "Response-Code: %{response_code}\nTime-Connect: 
 if [ $? -eq 0 ]
 then
   echo "status ok connection made"
-  echo "metric code string $(extract_header "$response" Response-Code)"
-  echo "metric time_connect double $(extract_header "$response" Time-Connect) seconds"
-  echo "metric time_total double $(extract_header "$response" Time-Total) seconds"
-  echo "metric url string $(extract_header "$response" URL-Effective)"
+  echo "metric $HOSTNAME.curl.code string $(extract_header "$response" Response-Code)"
+  echo "metric $HOSTNAME.curl.time_connect double $(extract_header "$response" Time-Connect) seconds"
+  echo "metric $HOSTNAME.curl.time_total double $(extract_header "$response" Time-Total) seconds"
+  echo "metric $HOSTNAME.curl.url string $(extract_header "$response" URL-Effective)"
 
   etag=$(extract_header "$response" ETag)
-  [ -n "$etag" ] && echo "metric etag string $etag"
+  [ -n "$etag" ] && echo "metric $HOSTNAME.curl.etag string $etag"
 
   length=$(extract_header "$response" Content-Length)
-  [ -n "$length" ] && echo "metric content_length uint32 $length bytes"
+  [ -n "$length" ] && echo "metric $HOSTNAME.curl.content_length uint32 $length bytes"
 
   modified=$(extract_header "$response" Last-Modified)
   if [ -n "$modified" ]
   then
       modified_seconds=$(date --date="$modified" +"%s")
       age=$(($(date +"%s") - $modified_seconds))
-      echo "metric page_age uint64 $age seconds"
+      echo "metric $HOSTNAME.curl.page_age uint64 $age seconds"
   fi
 
   exit 0

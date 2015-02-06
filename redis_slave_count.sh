@@ -43,6 +43,8 @@
 #
 # return new AlarmStatus(OK, 'Slaves are connected.');
 
+HOSTNAME=${HOSTNAME:-$(hostname)}
+HOSTNAME=$(echo ${HOSTNAME%.crowdrise.io} | perl -pe 's/(\d+)/\.\1/g')
 
 # If host arg is set, set $HOST. Else, default $HOST to '0.0.0.0'.
 if [ $1 ]; then
@@ -73,7 +75,7 @@ fi
 
 # If $SLAVE_COUNT, return metrics. Else fail.
 if [ $SLAVE_COUNT ]; then
-  echo "metric connected_slaves int $SLAVE_COUNT"
+  echo "metric $HOSTNAME.redis.slaves int $SLAVE_COUNT"
 else
   echo "status error - unable to pull stats from redis INFO"
   exit 1

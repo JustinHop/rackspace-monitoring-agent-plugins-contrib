@@ -20,13 +20,13 @@ eval grep $CPU /proc/stat | while read LINE ; do
 
   case "${WORDS[0]}" in
     cpu*)
-      echo "${WORDS[0]}.jiffies.user uint64 ${WORDS[1]} jiffies"
-      echo "${WORDS[0]}.jiffies.nice uint64 ${WORDS[2]} jiffies"
-      echo "${WORDS[0]}.jiffies.system uint64 ${WORDS[3]} jiffies"
-      echo "${WORDS[0]}.jiffies.idle uint64 ${WORDS[4]} jiffies"
-      echo "${WORDS[0]}.jiffies.iowait uint64 ${WORDS[5]} jiffies"
-      echo "${WORDS[0]}.jiffies.irq uint64 ${WORDS[6]} jiffies"
-      echo "${WORDS[0]}.jiffies.softirq uint64 ${WORDS[7]} jiffies"
+      echo "${WORDS[0]}.user uint64 ${WORDS[1]} jiffies"
+      echo "${WORDS[0]}.nice uint64 ${WORDS[2]} jiffies"
+      echo "${WORDS[0]}.system uint64 ${WORDS[3]} jiffies"
+      echo "${WORDS[0]}.idle uint64 ${WORDS[4]} jiffies"
+      echo "${WORDS[0]}.iowait uint64 ${WORDS[5]} jiffies"
+      echo "${WORDS[0]}.irq uint64 ${WORDS[6]} jiffies"
+      echo "${WORDS[0]}.softirq uint64 ${WORDS[7]} jiffies"
       ;;
     intr*)
       echo "interrupts uint64 ${WORDS[1]} interrupts"

@@ -23,6 +23,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+HOSTNAME=${HOSTNAME:-$(hostname)}
+HOSTNAME=$(echo ${HOSTNAME%.crowdrise.io} | perl -pe 's/(\d+)/\.\1/g')
+
 OUTPUT=$(/usr/lib/update-notifier/apt-check 2>&1)
 
 if [ $? -ne 0 ]; then
@@ -40,6 +43,6 @@ fi
 
 echo "status Pending updates: security ${PENDING_SECURITY}, other: ${PENDING_OTHER}"
 
-echo "metric pending_security uint32 ${PENDING_SECURITY}"
-echo "metric pending_other uint32 ${PENDING_OTHER}"
-echo "metric reboot_required string ${REBOOT_REQUIRED}"
+echo "metric $HOSTNAME.apt.pending_security uint32 ${PENDING_SECURITY}"
+echo "metric $HOSTNAME.apt.pending_other uint32 ${PENDING_OTHER}"
+echo "metric $HOSTNAME.apt.reboot_required string ${REBOOT_REQUIRED}"
