@@ -69,3 +69,4 @@ fi
 
 process_check=`ps ax | grep -v grep | grep -v process_mon | grep -c "$1"`
 echo "metric $HOSTNAME.process.$1 int $process_check"
+echo "metric process_mon int $process_check"
