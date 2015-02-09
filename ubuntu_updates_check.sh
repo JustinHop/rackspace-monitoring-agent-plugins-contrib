@@ -35,17 +35,17 @@ fi
 
 PENDING_OTHER=$(echo "${OUTPUT}" | cut -d ";" -f 1)
 PENDING_SECURITY=$(echo "${OUTPUT}" | cut -d ";" -f 2)
-REBOOT_REQUIRED="no"
+REBOOT_REQUIRED=0
 
 if [ -f "/var/run/reboot-required" ]; then
-  REBOOT_REQUIRED="yes"
+  REBOOT_REQUIRED=1
 fi
 
 echo "status Pending updates: security ${PENDING_SECURITY}, other: ${PENDING_OTHER}"
 
 echo "metric pending_security uint32 ${PENDING_SECURITY}"
 echo "metric pending_other uint32 ${PENDING_OTHER}"
-echo "metric reboot_required string ${REBOOT_REQUIRED}"
+echo "metric reboot_required uint32 ${REBOOT_REQUIRED}"
 echo "metric $HOSTNAME.apt.pending_security uint32 ${PENDING_SECURITY}"
 echo "metric $HOSTNAME.apt.pending_other uint32 ${PENDING_OTHER}"
-echo "metric $HOSTNAME.apt.reboot_required string ${REBOOT_REQUIRED}"
+echo "metric $HOSTNAME.apt.reboot_required uint32 ${REBOOT_REQUIRED}"
