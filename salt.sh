@@ -1,4 +1,5 @@
 #!/bin/bash
+# Justin Hoppensteadt <hop@crowdrise.com>
 
 HOSTNAME=${HOSTNAME:-$(hostname)}
 HOSTNAME=$(echo ${HOSTNAME%.crowdrise.io} | perl -pe 's/(\d+)/\.\1/g')
