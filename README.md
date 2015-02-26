@@ -3,7 +3,8 @@
 This repository contains contributed custom plugins for the Rackspace Cloud
 Monitoring agent. For details about installing plugins, see [agent plugin check documentation](http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/appendix-check-types-agent.html#section-ct-agent.plugin).
 
-Crowdrise Edits
+These plugins were modified to include the hostname as part of the check, so you
+can easily generate grafana graphs from the metrics.
 
 ## How to Contribute
 
